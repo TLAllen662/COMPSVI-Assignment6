@@ -30,12 +30,16 @@ def lcs_recursive(seq1, seq2):
     
     WARNING: This will be exponentially slow on large inputs!
     """
-    # TODO: Implement naive recursive solution
-    # Hint: Base case - if either sequence is empty, LCS length is 0
-    # Hint: If last characters match, LCS length = 1 + LCS of remaining sequences
-    # Hint: If last characters don't match, try removing last char from each sequence, take max
-    
-    pass  # Delete this and write your code
+    if not seq1 or not seq2:
+        return 0
+
+    if seq1[-1] == seq2[-1]:
+        return 1 + lcs_recursive(seq1[:-1], seq2[:-1])
+
+    return max(
+        lcs_recursive(seq1[:-1], seq2),
+        lcs_recursive(seq1, seq2[:-1]),
+    )
 
 
 # ============================================================================
@@ -240,7 +244,7 @@ if __name__ == "__main__":
     
     # Uncomment these as you complete each part:
     
-    # test_small_cases()
+    test_small_cases()
     # time_recursive()
     # compare_all_approaches()
     

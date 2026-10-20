@@ -115,14 +115,16 @@ def lcs_tabulation(seq1, seq2):
     Example:
         lcs_tabulation("AGGTAB", "GXTXAYB") returns 4 (LCS is "GTAB")
     """
-    # TODO: Implement tabulation solution
-    # Hint: Create a 2D table where dp[i][j] = LCS length of seq1[0..i] and seq2[0..j]
-    # Hint: Initialize first row and column to 0 (empty sequence cases)
-    # Hint: Fill table row by row
-    # Hint: If characters match: dp[i][j] = dp[i-1][j-1] + 1
-    # Hint: If characters don't match: dp[i][j] = max(dp[i-1][j], dp[i][j-1])
-    
-    pass  # Delete this and write your code
+    dp = [[0] * (len(seq2) + 1) for _ in range(len(seq1) + 1)]
+
+    for i, char1 in enumerate(seq1, start=1):
+        for j, char2 in enumerate(seq2, start=1):
+            if char1 == char2:
+                dp[i][j] = dp[i - 1][j - 1] + 1
+            else:
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+
+    return dp[len(seq1)][len(seq2)]
 
 
 # ============================================================================

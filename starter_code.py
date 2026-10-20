@@ -63,13 +63,35 @@ def lcs_memoization(seq1, seq2):
     Example:
         lcs_memoization("AGGTAB", "GXTXAYB") returns 4 (LCS is "GTAB")
     """
-    # TODO: Implement memoization solution
-    # Hint: Create a cache dictionary to store results
-    # Hint: Use tuple of (i, j) as key where i, j are positions in sequences
-    # Hint: Check cache before computing, store result before returning
-    # Hint: You may want to create a helper function that takes indices
-    
-    pass  # Delete this and write your code
+    cache = {}
+    stack = [(len(seq1), len(seq2), False)]
+
+    while stack:
+        i, j, expanded = stack.pop()
+        key = (i, j)
+
+        if key in cache:
+            continue
+
+        if i == 0 or j == 0:
+            cache[key] = 0
+        elif expanded:
+            if seq1[i - 1] == seq2[j - 1]:
+                cache[key] = 1 + cache[(i - 1, j - 1)]
+            else:
+                cache[key] = max(cache[(i - 1, j)], cache[(i, j - 1)])
+        else:
+            stack.append((i, j, True))
+            if seq1[i - 1] == seq2[j - 1]:
+                dependency = (i - 1, j - 1)
+                if dependency not in cache:
+                    stack.append((*dependency, False))
+            else:
+                for dependency in ((i - 1, j), (i, j - 1)):
+                    if dependency not in cache:
+                        stack.append((*dependency, False))
+
+    return cache[(len(seq1), len(seq2))]
 
 
 # ============================================================================

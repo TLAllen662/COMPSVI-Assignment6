@@ -269,7 +269,7 @@ if __name__ == "__main__":
     # Uncomment these as you complete each part:
     
     test_small_cases()
-    time_recursive()
-    # compare_all_approaches()
+    # time_recursive()
+    compare_all_approaches()
     
     print("\n⚠ Uncomment the test functions in the main block to run tests!")
